@@ -1,9 +1,21 @@
 ---
+# ОБЯЗАТЕЛЬНЫЕ
 title: "Название проекта"
 description: "Краткое описание — что делает проект и зачем."
 stack: ["Python", "FastAPI", "PostgreSQL", "Docker"]
-year: 2024
-github: "https://github.com/om1ji"
+
+# КАТЕГОРИЯ (одно из: backend | frontend | mobile | ai)
+category: "backend"
+
+# ГОД — число или период
+year: 2025
+# year: "2023-2025"
+
+# ССЫЛКИ (необязательные)
+github: "https://github.com/om1ji/repo-name"
+# demo: "https://example.com"
+
+# ЧЕРНОВИК — true скрывает с сайта
 draft: true
 ---
 
@@ -20,3 +32,5 @@ draft: true
 ## Сложности
 
 Что было интересного или сложного в реализации.
+
+![Caption под картинкой](/image.png)

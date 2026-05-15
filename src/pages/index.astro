@@ -86,17 +86,28 @@ const contacts = [
         {allProjects.length === 0 ? (
           <p class="empty-projects">Скоро будет — проекты добавляются.</p>
         ) : (
-          <div class="projects-list">
-            {allProjects.map((p) => (
-              <ProjectCard
-                slug={p.id}
-                title={p.data.title}
-                description={p.data.description}
-                stack={p.data.stack}
-                year={p.data.year}
-              />
-            ))}
-          </div>
+          <>
+            <div class="filter-tabs">
+              <button class="tab active" data-filter="all">Все</button>
+              <button class="tab" data-filter="backend">Backend</button>
+              <button class="tab" data-filter="frontend">Frontend</button>
+              <button class="tab" data-filter="mobile">Mobile</button>
+              <button class="tab" data-filter="ai">AI/LLM</button>
+            </div>
+            <div class="projects-list">
+              {allProjects.map((p) => (
+                <div data-category={p.data.category ?? "other"}>
+                  <ProjectCard
+                    slug={p.id}
+                    title={p.data.title}
+                    description={p.data.description}
+                    stack={p.data.stack}
+                    year={p.data.year}
+                  />
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </section>
@@ -104,7 +115,7 @@ const contacts = [
 
   <footer>
     <div class="container">
-      <span>© 2025 Амаль Хасанбаев</span>
+      <span>© 2026 om1ji</span>
       <div class="footer-links">
         {contacts.map((c) => (
           <a href={c.href} target="_blank" rel="noopener">{c.label}</a>
@@ -147,14 +158,13 @@ const contacts = [
     letter-spacing: 1px;
   }
   h1 {
-    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-size: 3rem;
     font-weight: 600;
     line-height: 1.05;
     letter-spacing: -2px;
     margin-bottom: 24px;
   }
   .hero-bio {
-    max-width: 480px;
     color: var(--text-muted);
     font-size: 1.05rem;
     margin-bottom: 40px;
@@ -184,7 +194,6 @@ const contacts = [
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-width: 600px;
     color: var(--text-muted);
     line-height: 1.75;
   }
@@ -222,6 +231,34 @@ const contacts = [
   }
 
   /* Projects */
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .tab {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .tab:hover {
+    color: var(--text);
+    border-color: var(--text-muted);
+  }
+  .tab.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
   .projects-list {
     display: flex;
     flex-direction: column;
@@ -263,3 +300,21 @@ const contacts = [
     opacity: 1;
   }
 </style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>(".tab");
+  const cards = document.querySelectorAll<HTMLElement>(".projects-list > [data-category]");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      const filter = tab.dataset.filter!;
+      cards.forEach((card) => {
+        const show = filter === "all" || card.dataset.category === filter;
+        card.style.display = show ? "" : "none";
+      });
+    });
+  });
+</script>
