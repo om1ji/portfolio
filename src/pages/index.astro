@@ -1,0 +1,265 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const allProjects = await getCollection("projects", ({ data }) => !data.draft);
+
+const skills = [
+  { category: "Backend", items: ["Python", "FastAPI", "Django", "PostgreSQL", "Redis"] },
+  { category: "Mobile", items: ["Flutter", "Dart"] },
+  { category: "AI / LLM", items: ["LangChain", "OpenAI API", "Prompt Engineering"] },
+  { category: "Infra", items: ["Docker", "Traefik", "Linux", "Nginx"] },
+];
+
+const contacts = [
+  { label: "GitHub", href: "https://github.com/om1ji" },
+  { label: "Telegram", href: "https://t.me/om1ji" },
+  { label: "Email", href: "mailto:om1ji.music@gmail.com" },
+];
+---
+
+<Base>
+  <Nav />
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <p class="hero-tag">Software Engineer</p>
+        <h1>Амаль<br />Хасанбаев</h1>
+        <p class="hero-bio">
+          Разрабатываю backend-системы, мобильные приложения и AI-инструменты.
+          Люблю разбираться в сути — от архитектуры до деплоя.
+        </p>
+        <div class="hero-links">
+          {contacts.map((c) => (
+            <a href={c.href} target="_blank" rel="noopener" class="contact-link">
+              {c.label} ↗
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">О себе</h2>
+        <div class="about-body">
+          <p>
+            Три года строю продукты на стыке backend-разработки, мобильных приложений и AI.
+            Работал как единственный технический специалист на проекте — проектировал архитектуру,
+            писал код, настраивал инфраструктуру и деплоил в production.
+          </p>
+          <p>
+            Называю себя T-shaped generalist: глубина в backend, достаточная ширина в DevOps,
+            мобильной разработке и работе с LLM. Интересует не просто «написать фичу»,
+            а понять систему целиком — от бизнес-задачи до того как это живёт на сервере.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">Стек</h2>
+        <div class="skills-grid">
+          {skills.map((group) => (
+            <div class="skill-group">
+              <span class="skill-category">{group.category}</span>
+              <div class="skill-tags">
+                {group.items.map((item) => <span class="tag">{item}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Проекты</h2>
+        {allProjects.length === 0 ? (
+          <p class="empty-projects">Скоро будет — проекты добавляются.</p>
+        ) : (
+          <div class="projects-list">
+            {allProjects.map((p) => (
+              <ProjectCard
+                slug={p.id}
+                title={p.data.title}
+                description={p.data.description}
+                stack={p.data.stack}
+                year={p.data.year}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2025 Амаль Хасанбаев</span>
+      <div class="footer-links">
+        {contacts.map((c) => (
+          <a href={c.href} target="_blank" rel="noopener">{c.label}</a>
+        ))}
+      </div>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  main {
+    padding-top: 56px;
+  }
+
+  section {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+  }
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+  .hero-bio {
+    max-width: 480px;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+  .hero-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .contact-link:hover {
+    color: var(--text);
+    border-color: var(--text-muted);
+    opacity: 1;
+  }
+
+  /* About */
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 600px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+  .about-body p {
+    font-size: 0.95rem;
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 32px;
+  }
+  .skill-category {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border-radius: 4px;
+    padding: 3px 9px;
+  }
+
+  /* Projects */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .empty-projects {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  /* Footer */
+  footer {
+    padding: 32px 0;
+  }
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+  .footer-links a:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+</style>

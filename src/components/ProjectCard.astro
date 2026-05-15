@@ -1,0 +1,88 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  stack: string[];
+  year?: number;
+}
+
+const { slug, title, description, stack, year } = Astro.props;
+---
+
+<a href={`/projects/${slug}`} class="card">
+  <div class="card-top">
+    <span class="card-title">{title}</span>
+    {year && <span class="card-year">{year}</span>}
+  </div>
+  <p class="card-desc">{description}</p>
+  <div class="card-stack">
+    {stack.map((tag) => <span class="tag">{tag}</span>)}
+  </div>
+  <span class="card-arrow">→</span>
+</a>
+
+<style>
+  .card {
+    display: block;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
+    opacity: 1;
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .card-year {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  .card-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .card-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .card-arrow {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .card:hover .card-arrow {
+    transform: translateX(4px);
+    color: var(--accent);
+  }
+</style>

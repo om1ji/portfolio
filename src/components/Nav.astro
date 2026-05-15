@@ -1,0 +1,56 @@
+---
+const links = [
+  { href: "/#about", label: "О себе" },
+  { href: "/#skills", label: "Стек" },
+  { href: "/#projects", label: "Проекты" },
+];
+---
+
+<nav>
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">am.</a>
+    <ul>
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13, 13, 13, 0.85);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  ul a {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+  ul a:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+</style>
