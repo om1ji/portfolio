@@ -54,7 +54,34 @@ const { title, description, stack, year, github, demo } = project.data;
       <a href="/#projects" class="back">← Все проекты</a>
     </div>
   </footer>
+
+  <div id="lightbox" aria-hidden="true">
+    <img id="lightbox-img" src="" alt="" />
+  </div>
 </Base>
+
+<script>
+  const lightbox = document.getElementById("lightbox")!;
+  const lightboxImg = document.getElementById("lightbox-img") as HTMLImageElement;
+
+  document.querySelectorAll(".prose img").forEach((img) => {
+    (img as HTMLElement).style.cursor = "zoom-in";
+    img.addEventListener("click", () => {
+      lightboxImg.src = (img as HTMLImageElement).src;
+      lightboxImg.alt = (img as HTMLImageElement).alt;
+      lightbox.classList.add("active");
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  lightbox.addEventListener("click", close);
+  document.addEventListener("keydown", (e) => e.key === "Escape" && close());
+
+  function close() {
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+</script>
 
 <style>
   main {
@@ -156,7 +183,6 @@ const { title, description, stack, year, github, demo } = project.data;
     color: var(--text-muted);
     line-height: 1.8;
     font-size: 0.95rem;
-    max-width: 640px;
   }
   .prose :global(h2) {
     font-size: 1.15rem;
@@ -209,9 +235,47 @@ const { title, description, stack, year, github, demo } = project.data;
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+  .prose :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin: 24px 0;
+  }
 
   footer {
     padding: 32px 0 48px;
     border-top: 1px solid var(--border);
+  }
+
+  #lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  #lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #lightbox img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 6px;
+    border: none;
+    margin: 0;
+    transform: scale(0.92);
+    transition: transform 0.2s ease;
+  }
+  #lightbox.active img {
+    transform: scale(1);
   }
 </style>
