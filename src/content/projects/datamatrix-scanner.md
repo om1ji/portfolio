@@ -1,0 +1,30 @@
+---
+# ОБЯЗАТЕЛЬНЫЕ
+title: "DataMatrix screen scanner for macOS"
+description: "Сканер DataMatrix GS1 кода с экрана macOS"
+stack: ["Swift"]
+
+year: 2026
+
+# ССЫЛКИ (необязательные)
+github: "https://github.com/om1ji/datamatrix-screen-scanner"
+
+# ЧЕРНОВИК — true скрывает с сайта
+draft: true
+---
+
+## О проекте
+
+Расскажи что это за проект, какую задачу решает.
+
+## Что сделал
+
+- Пункт 1
+- Пункт 2
+- Пункт 3
+
+## Сложности
+
+Что было интересного или сложного в реализации.
+
+![Caption под картинкой](/image.png)
