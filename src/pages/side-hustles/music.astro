@@ -1,0 +1,142 @@
+---
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+---
+
+<Base title="Музыка — Амаль Хасанбаев" description="Музыкальный продюсер и диджей">
+  <Nav />
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="/side-hustles">Не код</a> / Музыка</p>
+        <span class="page-tag">Музыка</span>
+        <h1>Музыкальный продюсер / DJ</h1>
+        <p class="page-bio">
+          Пишу музыку и миксы. Слушать можно на SoundCloud.
+        </p>
+        <div class="music-links">
+          <a href="https://soundcloud.com/om1ji" target="_blank" rel="noopener" class="music-link">
+            SoundCloud ↗
+          </a>
+          <a href="https://instagram.com/om1ji" target="_blank" rel="noopener" class="music-link">
+            Instagram ↗
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 om1ji</span>
+      <a href="/side-hustles" class="back-link">← Не код</a>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  main {
+    padding-top: 56px;
+  }
+
+  section {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+
+  .page-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border-radius: 4px;
+    padding: 3px 9px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+
+  .page-bio {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 620px;
+    margin-bottom: 32px;
+  }
+
+  .music-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .music-link {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .music-link:hover {
+    color: var(--text);
+    border-color: var(--text-muted);
+    opacity: 1;
+  }
+
+  footer {
+    padding: 32px 0;
+  }
+
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .back-link {
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+</style>

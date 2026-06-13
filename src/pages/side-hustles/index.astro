@@ -1,0 +1,197 @@
+---
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+
+const hustles = [
+  {
+    slug: "playback-engineer",
+    title: "Playback Engineer",
+    tag: "Живые мероприятия",
+    summary: "Запуск фонограмм и мониторинг на концертах и корпоративных мероприятиях.",
+  },
+  {
+    slug: "3d",
+    title: "3D художник",
+    tag: "3D Art",
+    summary: "Моделирую и анимирую в Blender. Модели можно покрутить прямо в браузере.",
+  },
+  {
+    slug: "music",
+    title: "Музыкальный продюсер / DJ",
+    tag: "Музыка",
+    summary: "Пишу музыку и миксы. SoundCloud: om1ji.",
+  },
+  {
+    slug: "kfu",
+    title: "КФУ",
+    tag: "Университет",
+    summary: "Community lead студенческого IT-сообщества KFU_ITCom. Методические материалы, стартап-конкурсы, амбассадор.",
+  },
+];
+---
+
+<Base title="Side Hustles — Амаль Хасанбаев" description="Чем занимаюсь помимо разработки">
+  <Nav />
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="page-tag">Side Hustles</p>
+        <h1>Помимо кода</h1>
+        <p class="page-bio">
+          Разработка — основной досуг. Но ещё я живу и в других направлениях.
+        </p>
+      </div>
+    </section>
+
+    <section class="hustles-section">
+      <div class="container">
+        <div class="hustles-grid">
+          {hustles.map((h) => (
+            <a href={`/side-hustles/${h.slug}`} class="hustle-card">
+              <div class="card-body">
+                <span class="hustle-tag">{h.tag}</span>
+                <h2 class="hustle-title">{h.title}</h2>
+                <p class="hustle-summary">{h.summary}</p>
+                <span class="card-link">Подробнее →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 om1ji</span>
+      <a href="/" class="back-link">← Портфолио</a>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  main {
+    padding-top: 56px;
+  }
+
+  section {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-tag {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+
+  .page-bio {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .hustles-section {
+    border-bottom: none;
+  }
+
+  .hustles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .hustle-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+
+  .hustle-card:hover {
+    border-color: var(--text-muted);
+    opacity: 1;
+  }
+
+  .card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .hustle-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border-radius: 4px;
+    padding: 3px 9px;
+    align-self: flex-start;
+  }
+
+  .hustle-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .hustle-summary {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .card-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-top: 8px;
+  }
+
+  footer {
+    padding: 32px 0;
+  }
+
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .back-link {
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+</style>

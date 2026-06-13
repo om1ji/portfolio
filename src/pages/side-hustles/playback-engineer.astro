@@ -1,0 +1,276 @@
+---
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+
+const photos = [
+  "/playback_engineer.jpeg",
+  "/playback_engineer_2.jpg",
+];
+---
+
+<Base title="Playback Engineer — Амаль Хасанбаев" description="В свободное время работаю playback engineer на концертах и мероприятиях">
+  <Nav />
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="breadcrumb"><a href="/side-hustles">Side Hustles</a> / Playback Engineer</p>
+        <h1>Playback Engineer</h1>
+        <p class="page-bio">
+          В свободное время работаю как playback engineer на концертах и мероприятиях.
+          Отвечаю за запуск фонограмм, мониторинг на сцене и коммуникацию с артистом
+          в прямом эфире.
+        </p>
+      </div>
+    </section>
+
+    <section class="extra-section">
+      <div class="container">
+        <h2 class="section-title"><a href="https://www.instagram.com/happysummeruz/?hl=ru" target="_blank" rel="noopener" class="heading-link">Happy Summer (UZ)</a> — 2021–2024</h2>
+        <p class="extra-text">
+          С 2021 по 2024 год работал техником в детском лагере Happy Summer (Узбекистан).
+          Подробности — скоро.
+        </p>
+      </div>
+    </section>
+
+    <section class="gallery-section">
+      <div class="container">
+        <h2 class="section-title">Фото с мероприятий</h2>
+        <div class="photo-grid">
+          {photos.map((src, i) => (
+            <button class="photo-thumb" data-src={src} aria-label={`Фото ${i + 1}`}>
+              <img src={src} alt={`Playback Engineer — фото ${i + 1}`} loading="lazy" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2026 om1ji</span>
+      <a href="/side-hustles" class="back-link">← Side Hustles</a>
+    </div>
+  </footer>
+</Base>
+
+<div id="lightbox" aria-hidden="true">
+  <button id="lb-close" aria-label="Закрыть">✕</button>
+  <img id="lb-img" src="" alt="" />
+</div>
+
+<style>
+  main {
+    padding-top: 56px;
+  }
+
+  section {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+
+  .page-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border-radius: 4px;
+    padding: 3px 9px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+
+  .page-bio {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 620px;
+  }
+
+  .extra-section {
+    padding: 64px 0;
+  }
+
+  .heading-link {
+    color: inherit;
+    border-bottom: 1px solid var(--text-muted);
+    padding-bottom: 1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .heading-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    opacity: 1;
+  }
+
+  .extra-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    max-width: 620px;
+  }
+
+  .gallery-section {
+    border-bottom: none;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .photo-thumb {
+    all: unset;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    display: block;
+  }
+
+  .photo-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.15s, transform 0.25s;
+  }
+
+  .photo-thumb:hover img {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+
+  /* Lightbox */
+  #lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.93);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  #lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  #lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  #lb-close {
+    all: unset;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  #lb-close:hover {
+    color: var(--text);
+  }
+
+  footer {
+    padding: 32px 0;
+  }
+
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .back-link {
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+</style>
+
+<script>
+  const lb = document.getElementById("lightbox")!;
+  const lbImg = document.getElementById("lb-img") as HTMLImageElement;
+  const lbClose = document.getElementById("lb-close")!;
+
+  document.querySelectorAll<HTMLButtonElement>(".photo-thumb").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      lbImg.src = btn.dataset.src!;
+      lbImg.alt = btn.querySelector("img")?.alt ?? "";
+      lb.classList.add("active");
+      lb.setAttribute("aria-hidden", "false");
+    });
+  });
+
+  function close() {
+    lb.classList.remove("active");
+    lb.setAttribute("aria-hidden", "true");
+  }
+
+  lbClose.addEventListener("click", close);
+  lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+</script>

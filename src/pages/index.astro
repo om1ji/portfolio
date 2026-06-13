@@ -7,10 +7,10 @@ import { getCollection } from "astro:content";
 const allProjects = await getCollection("projects", ({ data }) => !data.draft);
 
 const skills = [
-  { category: "Backend", items: ["Python", "FastAPI", "Django", "PostgreSQL", "Redis"] },
-  { category: "Mobile", items: ["Flutter", "Dart"] },
-  { category: "AI / LLM", items: ["LangChain", "OpenAI API", "Prompt Engineering"] },
-  { category: "Infra", items: ["Docker", "Traefik", "Linux", "Nginx"] },
+  { category: "Backend", items: ["Python", "FastAPI", "Django", "PostgreSQL", "Redis", "MongoDB", "Firebird", "RabbitMQ", "aiogram"] },
+  { category: "Mobile", items: ["Flutter", "Dart", "Firebase"] },
+  { category: "AI / LLM", items: ["LangChain", "n8n", "Ollama", "RAG", "Qdrant"] },
+  { category: "Infra", items: ["Docker", "Traefik", "Linux", "Nginx", "Ansible", "Prometheus", "Grafana"] },
 ];
 
 const contacts = [
@@ -30,8 +30,7 @@ const contacts = [
         <p class="hero-tag">Software Engineer</p>
         <h1>Амаль<br />Хасанбаев</h1>
         <p class="hero-bio">
-          Разрабатываю backend-системы, мобильные приложения и AI-инструменты.
-          Люблю разбираться в сути — от архитектуры до деплоя.
+          Люблю айти-разработку.
         </p>
         <div class="hero-links">
           {contacts.map((c) => (
@@ -49,14 +48,10 @@ const contacts = [
         <h2 class="section-title">О себе</h2>
         <div class="about-body">
           <p>
-            Три года строю продукты на стыке backend-разработки, мобильных приложений и AI.
-            Работал как единственный технический специалист на проекте — проектировал архитектуру,
-            писал код, настраивал инфраструктуру и деплоил в production.
-          </p>
-          <p>
-            Называю себя T-shaped generalist: глубина в backend, достаточная ширина в DevOps,
-            мобильной разработке и работе с LLM. Интересует не просто «написать фичу»,
-            а понять систему целиком — от бизнес-задачи до того как это живёт на сервере.
+            Строю продукты на стыке backend-разработки, мобильных приложений и AI.
+            Проектирую архитектуру, пишу код, настраиваю инфраструктуру и деплою. 
+            Называю себя T-shaped generalist: глубина в backend, ширина в DevOps,
+            мобильной разработке и работе с LLM.
           </p>
         </div>
       </div>
@@ -71,7 +66,7 @@ const contacts = [
             <div class="skill-group">
               <span class="skill-category">{group.category}</span>
               <div class="skill-tags">
-                {group.items.map((item) => <span class="tag">{item}</span>)}
+                {group.items.map((item) => <span class="tag" data-tech={item}>{item}</span>)}
               </div>
             </div>
           ))}
@@ -96,7 +91,7 @@ const contacts = [
             </div>
             <div class="projects-list">
               {allProjects.map((p) => (
-                <div data-category={p.data.category ?? "other"}>
+                <div data-category={p.data.category ?? "other"} data-stack={(p.data.stack ?? []).join(",")}>
                   <ProjectCard
                     slug={p.id}
                     title={p.data.title}
@@ -228,6 +223,16 @@ const contacts = [
     background: var(--accent-dim);
     border-radius: 4px;
     padding: 3px 9px;
+    cursor: pointer;
+    transition: opacity 0.15s, outline 0.1s;
+    user-select: none;
+  }
+  .tag:hover {
+    opacity: 0.8;
+  }
+  .tag.active {
+    outline: 1px solid var(--accent);
+    outline-offset: 2px;
   }
 
   /* Projects */
@@ -304,17 +309,42 @@ const contacts = [
 <script>
   const tabs = document.querySelectorAll<HTMLButtonElement>(".tab");
   const cards = document.querySelectorAll<HTMLElement>(".projects-list > [data-category]");
+  const techTags = document.querySelectorAll<HTMLElement>(".tag[data-tech]");
+
+  let activeCategory = "all";
+  let activeTech: string | null = null;
+
+  function applyFilters() {
+    cards.forEach((card) => {
+      const categoryMatch = activeCategory === "all" || card.dataset.category === activeCategory;
+      const stackItems = (card.dataset.stack ?? "").split(",").map(s => s.trim().toLowerCase());
+      const techMatch = activeTech === null || stackItems.includes(activeTech.toLowerCase());
+      card.style.display = categoryMatch && techMatch ? "" : "none";
+    });
+  }
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       tabs.forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
+      activeCategory = tab.dataset.filter!;
+      applyFilters();
+    });
+  });
 
-      const filter = tab.dataset.filter!;
-      cards.forEach((card) => {
-        const show = filter === "all" || card.dataset.category === filter;
-        card.style.display = show ? "" : "none";
-      });
+  techTags.forEach((tag) => {
+    tag.addEventListener("click", () => {
+      const tech = tag.dataset.tech!;
+      if (activeTech === tech) {
+        activeTech = null;
+        tag.classList.remove("active");
+      } else {
+        techTags.forEach((t) => t.classList.remove("active"));
+        activeTech = tech;
+        tag.classList.add("active");
+        document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+      }
+      applyFilters();
     });
   });
 </script>
