@@ -1,6 +1,19 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Nav from "../../components/Nav.astro";
+
+// Чтобы добавить трек: положи mp3 в public/music/ и добавь сюда строку.
+// src — путь относительно public (без public/), title — название, artist — необязательно.
+const tracks = [
+  { title: "Hurry Up", artist: "om1ji", src: "/music/hurry-up.mp3" },
+  { title: "SQuad", artist: "om1ji", src: "/music/squad.mp3" },
+  { title: "South Ru Rap", artist: "om1ji", src: "/music/south-ru-rap.mp3" },
+  { title: "Tonyak Darkpsy", artist: "om1ji", src: "/music/tonyak-darkpsy.mp3" },
+  { title: "Untitled 1", artist: "om1ji", src: "/music/untitled-1.mp3" },
+  { title: "Untitled 6", artist: "om1ji", src: "/music/untitled-6.mp3" },
+  { title: "Untitled 7", artist: "om1ji", src: "/music/untitled-7.mp3" },
+  { title: "Untitled 9", artist: "om1ji", src: "/music/untitled-9.mp3" },
+];
 ---
 
 <Base title="Музыка — Амаль Хасанбаев" description="Музыкальный продюсер и диджей">
@@ -13,7 +26,7 @@ import Nav from "../../components/Nav.astro";
         <span class="page-tag">Музыка</span>
         <h1>Музыкальный продюсер / DJ</h1>
         <p class="page-bio">
-          Пишу музыку и миксы. Слушать можно на SoundCloud.
+          Пишу музыку и миксы. Слушать можно прямо здесь или на SoundCloud.
         </p>
         <div class="music-links">
           <a href="https://soundcloud.com/om1ji" target="_blank" rel="noopener" class="music-link">
@@ -23,6 +36,100 @@ import Nav from "../../components/Nav.astro";
             Instagram ↗
           </a>
         </div>
+      </div>
+    </section>
+
+    <section class="featured-section">
+      <div class="container">
+        <h2 class="section-title">Миксы на SoundCloud</h2>
+        <div class="sc-list">
+          <div class="sc-item">
+            <div class="sc-embed">
+              <iframe
+                width="100%"
+                height="166"
+                scrolling="no"
+                frameborder="no"
+                loading="lazy"
+                allow="autoplay; encrypted-media"
+                title="HOR Maximum Heat Mix — Om1ji"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2303071754&color=%237c6ee0&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+              ></iframe>
+            </div>
+            <p class="sc-credit">
+              <a href="https://soundcloud.com/om1ji" target="_blank" rel="noopener">Om1ji</a>
+              · <a href="https://soundcloud.com/om1ji/hoer_max_heat" target="_blank" rel="noopener">HOR Maximum Heat Mix</a>
+            </p>
+          </div>
+          <div class="sc-item">
+            <div class="sc-embed">
+              <iframe
+                width="100%"
+                height="166"
+                scrolling="no"
+                frameborder="no"
+                loading="lazy"
+                allow="autoplay; encrypted-media"
+                title="Quadrat Special Mix 1 — Om1ji"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2101657764&color=%237c6ee0&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+              ></iframe>
+            </div>
+            <p class="sc-credit">
+              <a href="https://soundcloud.com/quadrat_festival" target="_blank" rel="noopener">QUADRAT</a>
+              · <a href="https://soundcloud.com/quadrat_festival/om1ji-quadrat-special-mix" target="_blank" rel="noopener">Quadrat Special Mix 1 — Om1ji</a>
+            </p>
+          </div>
+          <div class="sc-item">
+            <div class="sc-embed">
+              <iframe
+                width="100%"
+                height="450"
+                scrolling="no"
+                frameborder="no"
+                loading="lazy"
+                allow="autoplay; encrypted-media"
+                title="UPD_001 — UPD Records"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A1844980524&color=%237c6ee0&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+              ></iframe>
+            </div>
+            <p class="sc-credit">
+              <a href="https://soundcloud.com/updrecordsberlin" target="_blank" rel="noopener">UPD Records</a>
+              · <a href="https://soundcloud.com/updrecordsberlin/sets/upd_001" target="_blank" rel="noopener">UPD_001</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tracks-section">
+      <div class="container">
+        <h2 class="section-title">Треки</h2>
+        <ul class="tracklist">
+          {tracks.map((track, i) => (
+            <li class="track" data-track>
+              <audio preload="none" src={track.src}></audio>
+              <button class="play-btn" type="button" aria-label="Воспроизвести">
+                <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" fill="currentColor" />
+                </svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor" />
+                </svg>
+              </button>
+              <div class="track-body">
+                <div class="track-meta">
+                  <span class="track-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span class="track-title">{track.title}</span>
+                  {track.artist && <span class="track-artist">— {track.artist}</span>}
+                  <span class="track-time">0:00 / 0:00</span>
+                </div>
+                <div class="track-progress" role="slider" aria-label="Перемотка" tabindex="0">
+                  <div class="track-progress-fill"></div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   </main>
@@ -35,6 +142,66 @@ import Nav from "../../components/Nav.astro";
   </footer>
 </Base>
 
+<script>
+  function fmt(sec: number): string {
+    if (!isFinite(sec) || sec < 0) sec = 0;
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${String(s).padStart(2, "0")}`;
+  }
+
+  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-track]"));
+  const audios = items.map((el) => el.querySelector("audio") as HTMLAudioElement);
+
+  items.forEach((el, idx) => {
+    const audio = audios[idx];
+    const btn = el.querySelector(".play-btn") as HTMLButtonElement;
+    const time = el.querySelector(".track-time") as HTMLElement;
+    const progress = el.querySelector(".track-progress") as HTMLElement;
+    const fill = el.querySelector(".track-progress-fill") as HTMLElement;
+
+    btn.addEventListener("click", () => {
+      if (audio.paused) {
+        // остановить остальные треки
+        audios.forEach((a) => a !== audio && a.pause());
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener("play", () => el.classList.add("is-playing"));
+    audio.addEventListener("pause", () => el.classList.remove("is-playing"));
+    audio.addEventListener("ended", () => {
+      el.classList.remove("is-playing");
+      fill.style.width = "0%";
+      time.textContent = `0:00 / ${fmt(audio.duration)}`;
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+      time.textContent = `0:00 / ${fmt(audio.duration)}`;
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      fill.style.width = `${pct}%`;
+      time.textContent = `${fmt(audio.currentTime)} / ${fmt(audio.duration)}`;
+    });
+
+    const seek = (clientX: number) => {
+      const rect = progress.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      if (audio.duration) audio.currentTime = ratio * audio.duration;
+    };
+    progress.addEventListener("click", (e) => seek(e.clientX));
+    progress.addEventListener("keydown", (e) => {
+      if (!audio.duration) return;
+      if (e.key === "ArrowRight") audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+      if (e.key === "ArrowLeft") audio.currentTime = Math.max(0, audio.currentTime - 5);
+    });
+  });
+</script>
+
 <style>
   main {
     padding-top: 56px;
@@ -43,6 +210,10 @@ import Nav from "../../components/Nav.astro";
   section {
     padding: 96px 0;
     border-bottom: 1px solid var(--border);
+  }
+
+  .tracks-section {
+    padding: 64px 0;
   }
 
   .breadcrumb {
@@ -110,6 +281,183 @@ import Nav from "../../components/Nav.astro";
     color: var(--text);
     border-color: var(--text-muted);
     opacity: 1;
+  }
+
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .sc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .sc-embed {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+
+  .sc-embed iframe {
+    display: block;
+  }
+
+  .sc-credit {
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .sc-credit a {
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+
+  .sc-credit a:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+
+  .tracklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .track {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .track:hover {
+    background: var(--bg-card-hover);
+  }
+
+  .track.is-playing {
+    border-color: var(--accent);
+  }
+
+  .play-btn {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .play-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .icon-pause {
+    display: none;
+  }
+
+  .is-playing .icon-play {
+    display: none;
+  }
+
+  .is-playing .icon-pause {
+    display: block;
+  }
+
+  .is-playing .play-btn {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .track-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .track-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
+
+  .track-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .track-title {
+    color: var(--text);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .track-artist {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .track-time {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .track-progress {
+    position: relative;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .track-progress:focus-visible {
+    box-shadow: 0 0 0 2px var(--accent-dim);
+  }
+
+  .track-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.1s linear;
+  }
+
+  @media (max-width: 540px) {
+    .track-artist {
+      display: none;
+    }
   }
 
   footer {

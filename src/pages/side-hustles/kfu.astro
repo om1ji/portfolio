@@ -26,7 +26,9 @@ import Nav from "../../components/Nav.astro";
         <div class="details-grid">
           <div class="detail-item">
             <span class="detail-label">Сообщество</span>
-            <span class="detail-value">KFU_ITCom</span>
+            <span class="detail-value">
+              <a href="https://t.me/kfu_it_community" target="_blank" rel="noopener">KFU_ITCom ↗</a>
+            </span>
           </div>
           <div class="detail-item">
             <span class="detail-label">Роль</span>
@@ -44,6 +46,18 @@ import Nav from "../../components/Nav.astro";
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="extra-section">
+      <div class="container">
+        <span class="section-label">Ещё в стенах КФУ</span>
+        <h2 class="section-heading">Привлечение иностранных студентов</h2>
+        <p class="section-body">
+          Работал в Администрации по привлечению иностранных студентов — помогал
+          будущим студентам подавать документы на поступление: сопровождал на всех
+          этапах подачи, объяснял требования и помогал собрать полный пакет документов.
+        </p>
       </div>
     </section>
   </main>
@@ -111,8 +125,32 @@ import Nav from "../../components/Nav.astro";
     max-width: 620px;
   }
 
-  .details-section {
+  .extra-section {
     border-bottom: none;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .section-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+
+  .section-body {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 620px;
   }
 
   .details-grid {
